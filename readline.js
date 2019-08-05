@@ -8,7 +8,7 @@ let personInfo = {
 	hobbies : []
 }
 
-rl.question("Whats is your name ", (answer) =>{
+rl.question("What is your name ", (answer) =>{
 
 	personInfo.name = answer;
 
