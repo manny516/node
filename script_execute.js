@@ -1,4 +1,4 @@
-//Node JS bash Terminal execution Fuctions 
+//Node JS bash Terminal execution Functions 
 //Developer : Immanuel Walthrust 
 //GitHub Account : https://github.com/manny516/node
 
