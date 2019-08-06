@@ -4,11 +4,19 @@
 
 const exec = require('child_process').exec;
 
-//Remove File Exex Function 
-let remove_file = (directory,fileName)=>{
 
+//White Space Encoded
+function cleanSpace(fileName){
 	let cleanUp = fileName.replace(/\s/g ,"\\ ");
-	exec(`rm ${directory}${cleanUp.toString()}`, (err,file)=>{
+	return cleanUp;
+}
+
+
+//Remove File Exex Function 
+let removeFile = (directory,fileName)=>{
+	
+	let filesdr = cleanSpace(fileName);
+	exec(`rm ${directory}${filesdr}`, (err,file)=>{
 		if(err){
 			throw err;
 		}else{
@@ -16,8 +24,27 @@ let remove_file = (directory,fileName)=>{
 		}
 
 	});
+
 }
 
-remove_file("/Users/ww2kvn/Desktop/","Screen Shot 2019-08-05 at 12.31.09 PM.png");
+//removeFile("/Users/ww2kvn/Desktop/","Screen Shot 2019-07-24 at 2.48.51 PM.png");
 
 
+let removeEmptyDir = (directory,folderName) =>{
+
+	let whiteSpace = cleanSpace(folderName);
+
+	exec(`rm -d ${directory}${whiteSpace}`, (err,folder)=>{
+
+		if(err){
+			throw err;
+		}else{
+			console.log("Successfully Removed Empty Directory : " + folder);
+		}
+
+	});
+
+}
+
+
+removeEmptyDir("/Users/ww2kvn/Desktop/","test Hello");
