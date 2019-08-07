@@ -27,7 +27,7 @@ rl.question("What is your name ", (answer) =>{
 
 				rl.close();
 
-				process.stdout.write(`You're name is ${personInfo.name},\n you are ${personInfo.age} years old,\n and your hobbies are\xa0`); 
+				process.stdout.write(`Your name is ${personInfo.name},\n you are ${personInfo.age} years old,\n and your hobbies are\xa0`); 
 
 				let hobbieReturn = personInfo.hobbies.forEach((person) =>{
 					process.stdout.write(`${person.toString()},\xa0`); 
