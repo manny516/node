@@ -16,31 +16,48 @@ let cleanSpace = (fileName) => {
 let removeFile = (directory,fileName) => {
 
 	let filesdr = cleanSpace(fileName);
-	exec(`rm ${directory}${filesdr}`, (err,file) => {
+	exec(`rm ${directory}${filesdr}`, (err) => {
 		if(err){
 			throw err;
 		}else{
-			console.log("Successfully Removed : " +  file);
+			console.log("Successfully Removed : " + directory + fileName);
 		}
 
 	});
-
 }
 
 
-
-let removeEmptyDir = (directory,folderName) => {
+//Remove empty Directory
+let removeDir = (directory,folderName) => {
 
 	let whiteSpace = cleanSpace(folderName);
 
-	exec(`rm -d ${directory}${whiteSpace}`, (err,folder) => {
+	exec(`rm -d ${directory}${whiteSpace}`, (err) => {
 
 		if(err){
 			throw err;
 		}else{
-			console.log("Successfully Removed Empty Directory : " + folder);
+			console.log("Successfully Removed Empty Directory : " directory + folderName);
+		}
+
+	});
+}
+
+
+//Force Remove Driectory even if file and folder exsist 
+let forceRemoveDir = (directory,folderName) => {
+
+	let whiteSpace = cleanSpace(folderName);
+
+	exec(`rm -r ${directory}${whiteSpace}`, (err) => {
+
+		if(err){
+			throw err;
+		}else{
+			console.log("Directory has been Successfully removed : " + directory + folderName );
 		}
 
 	});
 
 }
+
