@@ -3,6 +3,8 @@
 //GitHub Account : https://github.com/manny516/node
 
 const exec = require('child_process').exec;
+const {spawn } = require('child_process');
+let fs = require('fs');
 
 
 //White Space Encoded
@@ -37,7 +39,7 @@ let removeDir = (directory,folderName) => {
 		if(err){
 			throw err;
 		}else{
-			console.log("Successfully Removed Empty Directory : " directory + folderName);
+			console.log("Successfully Removed Empty Directory : " + directory + folderName);
 		}
 
 	});
@@ -60,4 +62,47 @@ let forceRemoveDir = (directory,folderName) => {
 	});
 
 }
+
+let createDir = (directory,folderName) => {
+
+	let whiteSpace = cleanSpace(folderName)
+
+	directory = directory || '';
+
+	exec(`mkdir ${directory}${whiteSpace}`, (err) => {
+
+		if(err){
+			throw err;
+		}else{
+			console.log(directory + folderName + ": Directory has been created successfully");
+		}
+
+	});
+
+}
+
+
+
+
+//Search Dir Script 
+let searchDir = (directory,folderName) => {
+
+	directory || '';
+
+	let whiteSpace = cleanSpace(folderName);
+
+	fs.readdir(`${directory}/${whiteSpace}`, (err,files) => {
+
+		if(err){
+			throw err;
+		}else{
+			console.log(files);
+		}
+	});
+
+}
+
+searchDir("/Users/ww2kvn/Desktop","allimport");
+
+
 
