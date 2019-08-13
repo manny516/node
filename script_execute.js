@@ -3,8 +3,9 @@
 //GitHub Account : https://github.com/manny516/node
 
 const exec = require('child_process').exec;
-const {spawn } = require('child_process');
-let fs = require('fs');
+const spawn = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 
 //White Space Encoded
@@ -65,7 +66,7 @@ let forceRemoveDir = (directory,folderName) => {
 
 let createDir = (directory,folderName) => {
 
-	let whiteSpace = cleanSpace(folderName)
+	let whiteSpace = cleanSpace(folderName);
 
 	directory = directory || '';
 
@@ -80,9 +81,6 @@ let createDir = (directory,folderName) => {
 	});
 
 }
-
-
-
 
 //Search Dir Script 
 let searchDir = (directory,folderName) => {
@@ -102,7 +100,38 @@ let searchDir = (directory,folderName) => {
 
 }
 
-searchDir("/Users/ww2kvn/Desktop","allimport");
 
 
+let readFile = (directory) => {
+
+	let whiteSpace = cleanSpace(directory);
+	//let stats = fs.stateSync(whiteSpace)
+	fs.readdir(`${whiteSpace}`, (err,files) => {
+
+		files.forEach((fileName) => {
+
+			let file = path.join('',`${whiteSpace}`,fileName)
+			let stats = fs.statSync(file);
+
+			if(stats.isFile()){
+
+				fs.readFile(file,'UTF-8', (err,content) => {
+
+					if(err){
+						throw err;
+					}else{
+
+						console.log(content);
+					}
+
+				});
+			}
+
+		});
+
+
+	});
+
+
+}
 
