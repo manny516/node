@@ -8,6 +8,45 @@ const fs = require('fs');
 const path = require('path');
 
 
+class ESX {
+
+
+	//White Space Encoded
+	static cleanSpace(fileName){
+		let cleanUp = fileName.replace(/\s/g ,"\\ ");
+		return cleanUp;
+	}
+
+
+	//Error Handler Fiunction
+	static errHandler(error,success){
+		if(error){
+			throw error;
+		}else{
+			console.log(`${success}`);
+		}
+
+	}
+
+
+	//Remove File Exex Function 
+	static removeFile(directory,fileName){
+
+		let filesdr = this.cleanSpace(fileName);
+		let successMessage  = "Successfully Removed : " + directory + fileName;
+
+		exec(`rm ${directory}${filesdr}`, (err) => {
+			this.errHandler(err,successMessage);
+
+		});
+	}
+	
+
+}
+
+ESX.removeFile('/Users/ww2kvn/Desktop/','Screen Shot 2019-08-14 at 2.31.40 PM.png');
+
+
 //White Space Encoded
 let cleanSpace = (fileName) => {
 	let cleanUp = fileName.replace(/\s/g ,"\\ ");
@@ -15,16 +54,26 @@ let cleanSpace = (fileName) => {
 }
 
 
+//Error Handler Fiunction
+let errHandler = (error,success) => {
+	if(error){
+		throw error;
+	}else{
+		console.log(`${success}`);
+	}
+
+}
+
+
 //Remove File Exex Function 
 let removeFile = (directory,fileName) => {
 
 	let filesdr = cleanSpace(fileName);
+	let successMessage  = "Successfully Removed : " + directory + fileName;
+
 	exec(`rm ${directory}${filesdr}`, (err) => {
-		if(err){
-			throw err;
-		}else{
-			console.log("Successfully Removed : " + directory + fileName);
-		}
+		
+		errHandler(err,successMessage);
 
 	});
 }
@@ -34,14 +83,11 @@ let removeFile = (directory,fileName) => {
 let removeDir = (directory,folderName) => {
 
 	let whiteSpace = cleanSpace(folderName);
+	let successMessage = "Successfully Removed Empty Directory : " + directory + folderName;
 
 	exec(`rm -d ${directory}${whiteSpace}`, (err) => {
 
-		if(err){
-			throw err;
-		}else{
-			console.log("Successfully Removed Empty Directory : " + directory + folderName);
-		}
+		errHandler(err,successMessage);
 
 	});
 }
@@ -51,14 +97,10 @@ let removeDir = (directory,folderName) => {
 let forceRemoveDir = (directory,folderName) => {
 
 	let whiteSpace = cleanSpace(folderName);
+	let successMessage = "Directory has been Successfully removed : " + directory + folderName ;
 
 	exec(`rm -r ${directory}${whiteSpace}`, (err) => {
-
-		if(err){
-			throw err;
-		}else{
-			console.log("Directory has been Successfully removed : " + directory + folderName );
-		}
+		errHandler(err,successMessage);		
 
 	});
 
@@ -70,13 +112,11 @@ let createDir = (directory,folderName) => {
 
 	directory = directory || '';
 
+	let successMessage = directory + folderName + ": Directory has been created successfully";
+
 	exec(`mkdir ${directory}${whiteSpace}`, (err) => {
 
-		if(err){
-			throw err;
-		}else{
-			console.log(directory + folderName + ": Directory has been created successfully");
-		}
+		errHandler(err, successMessage);
 
 	});
 
@@ -105,7 +145,7 @@ let searchDir = (directory,folderName) => {
 let readFile = (directory) => {
 
 	let whiteSpace = cleanSpace(directory);
-	//let stats = fs.stateSync(whiteSpace)
+	
 	fs.readdir(`${whiteSpace}`, (err,files) => {
 
 		files.forEach((fileName) => {
@@ -135,3 +175,14 @@ let readFile = (directory) => {
 
 }
 
+
+/*let createFile = (directory,fileName,fileExe,fileContent)=> {
+
+	let cleanDir = cleanSpace(directory);
+	let cleanFile = cleanSpace(fileName);
+
+
+	fs.writeFile(`${cleanDir}${cleanFile}${fileExe}`, fileContent,);
+
+
+}*/
